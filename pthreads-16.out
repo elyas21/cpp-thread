@@ -1,0 +1,10 @@
+Sequential Calculation: 3.141593
+This is -0.000000 away from the correct value of PI.
+
+ParallelCalculation: 3.141593
+This is -0.000000 away from the correct value of PI.
+
+Number of iterations: 100000000, Number of Threads: 8
+
+Parallel calculation is VALID!
+Sequential Time: 0.213232, Parallel Time: 0.055407, Speedup: 3.848464
