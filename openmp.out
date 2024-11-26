@@ -1,15 +1,80 @@
-Sequential Calculation: 3.141583
-This is -0.000010 away from the correct value of PI.
+Iterations: 10, Threads: 2
+Sequential Time: 0.000000, Parallel Time (Pthreads): 0.000415, Parallel Time (OpenMP): 0.000244
+Sequential PI: 3.041840, Parallel PI (Pthreads): 3.041840, Parallel PI (OpenMP): 3.041840
+Speedup (Pthreads): 0.000000, Speedup (OpenMP): 0.000000
 
-ParallelCalculation: 3.141583
-This is -0.000010 away from the correct value of PI.
+Iterations: 10, Threads: 4
+Sequential Time: 0.000000, Parallel Time (Pthreads): 0.000318, Parallel Time (OpenMP): 0.000247
+Sequential PI: 3.041840, Parallel PI (Pthreads): 3.041840, Parallel PI (OpenMP): 3.041840
+Speedup (Pthreads): 0.000000, Speedup (OpenMP): 0.000000
 
-ParallelCalculationOpenMp: 3.141583
-This is -0.000010 away from the correct value of PI.
+Iterations: 10, Threads: 8
+Sequential Time: 0.000001, Parallel Time (Pthreads): 0.001044, Parallel Time (OpenMP): 0.000321
+Sequential PI: 3.041840, Parallel PI (Pthreads): 3.041840, Parallel PI (OpenMP): 3.041840
+Speedup (Pthreads): 0.000913, Speedup (OpenMP): 0.002972
 
-Number of iterations: 100000, Number of Threads: 3
+Iterations: 10, Threads: 16
+Sequential Time: 0.000000, Parallel Time (Pthreads): 0.001347, Parallel Time (OpenMP): 0.000728
+Sequential PI: 3.041840, Parallel PI (Pthreads): 3.041840, Parallel PI (OpenMP): 3.041840
+Speedup (Pthreads): 0.000000, Speedup (OpenMP): 0.000000
 
-Parallel calculation is VALID!
-OpenMp Parallel calculation is VALID!
-Sequential Time: 0.000901, Parallel Time: 0.001047, Speedup: 0.860624
-Sequential Time: 0.000901, Parallel Time: 0.000720, Speedup: 1.251325
+Iterations: 100, Threads: 2
+Sequential Time: 0.000033, Parallel Time (Pthreads): 0.000305, Parallel Time (OpenMP): 0.000395
+Sequential PI: 3.131593, Parallel PI (Pthreads): 3.131593, Parallel PI (OpenMP): 3.131593
+Speedup (Pthreads): 0.107897, Speedup (OpenMP): 0.083283
+
+Iterations: 100, Threads: 4
+Sequential Time: 0.000001, Parallel Time (Pthreads): 0.000442, Parallel Time (OpenMP): 0.000134
+Sequential PI: 3.131593, Parallel PI (Pthreads): 3.131593, Parallel PI (OpenMP): 3.131593
+Speedup (Pthreads): 0.002157, Speedup (OpenMP): 0.007117
+
+Iterations: 100, Threads: 8
+Sequential Time: 0.000000, Parallel Time (Pthreads): 0.000513, Parallel Time (OpenMP): 0.000200
+Sequential PI: 3.131593, Parallel PI (Pthreads): 3.131593, Parallel PI (OpenMP): 3.131593
+Speedup (Pthreads): 0.000000, Speedup (OpenMP): 0.000000
+
+Iterations: 100, Threads: 16
+Sequential Time: 0.000000, Parallel Time (Pthreads): 0.001131, Parallel Time (OpenMP): 0.001142
+Sequential PI: 3.131593, Parallel PI (Pthreads): 3.131593, Parallel PI (OpenMP): 3.131593
+Speedup (Pthreads): 0.000000, Speedup (OpenMP): 0.000000
+
+Iterations: 1000, Threads: 2
+Sequential Time: 0.000001, Parallel Time (Pthreads): 0.000381, Parallel Time (OpenMP): 0.000387
+Sequential PI: 3.140593, Parallel PI (Pthreads): 3.140593, Parallel PI (OpenMP): 3.140593
+Speedup (Pthreads): 0.002503, Speedup (OpenMP): 0.002465
+
+Iterations: 1000, Threads: 4
+Sequential Time: 0.000004, Parallel Time (Pthreads): 0.000429, Parallel Time (OpenMP): 0.000178
+Sequential PI: 3.140593, Parallel PI (Pthreads): 3.140593, Parallel PI (OpenMP): 3.140593
+Speedup (Pthreads): 0.009450, Speedup (OpenMP): 0.022758
+
+Iterations: 1000, Threads: 8
+Sequential Time: 0.000004, Parallel Time (Pthreads): 0.000619, Parallel Time (OpenMP): 0.000263
+Sequential PI: 3.140593, Parallel PI (Pthreads): 3.140593, Parallel PI (OpenMP): 3.140593
+Speedup (Pthreads): 0.006549, Speedup (OpenMP): 0.015413
+
+Iterations: 1000, Threads: 16
+Sequential Time: 0.000003, Parallel Time (Pthreads): 0.001090, Parallel Time (OpenMP): 0.000947
+Sequential PI: 3.140593, Parallel PI (Pthreads): 3.140593, Parallel PI (OpenMP): 3.140593
+Speedup (Pthreads): 0.002843, Speedup (OpenMP): 0.003273
+
+Iterations: 10000, Threads: 2
+Sequential Time: 0.000031, Parallel Time (Pthreads): 0.000260, Parallel Time (OpenMP): 0.000458
+Sequential PI: 3.141493, Parallel PI (Pthreads): 3.141493, Parallel PI (OpenMP): 3.141493
+Speedup (Pthreads): 0.119157, Speedup (OpenMP): 0.067673
+
+Iterations: 10000, Threads: 4
+Sequential Time: 0.000031, Parallel Time (Pthreads): 0.000365, Parallel Time (OpenMP): 0.000206
+Sequential PI: 3.141493, Parallel PI (Pthreads): 3.141493, Parallel PI (OpenMP): 3.141493
+Speedup (Pthreads): 0.084912, Speedup (OpenMP): 0.150463
+
+Iterations: 10000, Threads: 8
+Sequential Time: 0.000031, Parallel Time (Pthreads): 0.000658, Parallel Time (OpenMP): 0.000257
+Sequential PI: 3.141493, Parallel PI (Pthreads): 3.141493, Parallel PI (OpenMP): 3.141493
+Speedup (Pthreads): 0.047101, Speedup (OpenMP): 0.120594
+
+Iterations: 10000, Threads: 16
+Sequential Time: 0.000034, Parallel Time (Pthreads): 0.001288, Parallel Time (OpenMP): 0.000654
+Sequential PI: 3.141493, Parallel PI (Pthreads): 3.141493, Parallel PI (OpenMP): 3.141493
+Speedup (Pthreads): 0.026472, Speedup (OpenMP): 0.052133
+

@@ -37,6 +37,27 @@ double getTime()
 // TODO: Uncomment one of these include files for each version
 #include "pthread.h"
 #include "omp.h"
+// Function to save speed comparison to CSV
+void saveSpeedToCSV(long iterations, int numThreads, double seqTime, double pthreadTime, double ompTime) {
+    FILE *fp = fopen("speed_comparison.csv", "a");
+    if (fp == NULL) {
+        printf("Error opening file for speed comparison.\n");
+        return;
+    }
+    fprintf(fp, "%ld,%d,%f,%f,%f\n", iterations, numThreads, seqTime, pthreadTime, ompTime);
+    fclose(fp);
+}
+
+// Function to save performance comparison to CSV
+void savePerformanceToCSV(long iterations, int numThreads, double seqTime, double pthreadSpeedup, double ompSpeedup) {
+    FILE *fp = fopen("performance_comparison.csv", "a");
+    if (fp == NULL) {
+        printf("Error opening file for performance comparison.\n");
+        return;
+    }
+    fprintf(fp, "%ld,%d,%f,%f,%f\n", iterations, numThreads, seqTime, pthreadSpeedup, ompSpeedup);
+    fclose(fp);
+}
 
 // TODO: Declare any global variables or types here
 double sum = 0.0;
@@ -51,28 +72,114 @@ double getDifference(double calculatedPi);
 
 
 // Main method
+// int main(int argc, char* argv[])
+// {
+//   // Variable declarations
+//   double sequentialStart, sequentialEnd, sequentialTime;
+//   double parallelStart, parallelEnd, parallelTime;
+
+  
+//   double parallelStartOpenMP, parallelEndOpenMP, parallelTimeOpenMP;
+  
+  
+//   double sequentialPi, parallelPi, openMPPi;
+//   double sequentialDifference, parallelDifference, openMPDifference;
+//   long iterations; 
+//   int numberOfThreads;
+
+
+
+//   // Get number of iterations and number of threads from the command line
+//   if(argc > 1)
+//     {
+//       iterations = strtol(argv[1], NULL, 10);
+//       numberOfThreads = strtol(argv[2], NULL, 10);
+//     }
+//   else
+//     {
+//       printf("\nWhen running this program, please include number of iterations and number of threads on command line.\n");
+//       return 0;
+//     }
+
+//   // Time sequential calculation
+//   sequentialStart = getTime();
+//   sequentialPi = sequentialCompute(iterations);
+//   sequentialEnd = getTime();
+//   sequentialTime = sequentialEnd - sequentialStart;
+    
+//   // Time parallel calculation
+//   parallelStart = getTime();
+//   parallelPi = parallelCompute(iterations, numberOfThreads);
+//   parallelEnd = getTime();
+//   parallelTime = parallelEnd - parallelStart;
+  
+//   // Time openMP parralle calculation
+//   parallelStartOpenMP = getTime();
+//   openMPPi = parallelComputeOpenMP(iterations, numberOfThreads);
+//   parallelEndOpenMP = getTime();
+//   parallelTimeOpenMP = parallelEndOpenMP - parallelStartOpenMP;
+
+//   // How do results compare with PI?
+//   sequentialDifference = getDifference(sequentialPi);
+//   parallelDifference = getDifference(parallelPi);
+//   openMPDifference = getDifference(openMPPi);
+  
+  
+  
+//   // Print results
+//   printf("Sequential Calculation: %f\n", sequentialPi);
+//   printf("This is %f away from the correct value of PI.\n\n", sequentialDifference);
+
+//   printf("ParallelCalculation: %f\n", parallelPi);
+//   printf("This is %f away from the correct value of PI.\n\n", parallelDifference);
+
+//   printf("ParallelCalculationOpenMp: %f\n", openMPPi);
+//   printf("This is %f away from the correct value of PI.\n\n", openMPDifference);
+  
+//   printf("Number of iterations: %ld, Number of Threads: %d\n\n", iterations, numberOfThreads);
+
+//   // Calculate the validity of the parallel computation
+//   double difference = parallelDifference - sequentialDifference;
+
+//   if (difference < .01 && difference > -.01)
+//     printf("Parallel calculation is VALID!\n");
+//   else
+//     printf("Parallel calculation is INVALID!\n");
+
+
+//   double differenceOpenMP = openMPDifference - sequentialDifference;
+
+//   if (differenceOpenMP < .01 && difference > -.01)
+//     printf("OpenMp Parallel calculation is VALID!\n");
+//   else
+//     printf("OpenMp Parallel calculation is INVALID!\n");
+
+//   // Calculate and print speedup results
+//   double speedup = ((double)sequentialTime)/((double)parallelTime);
+//   printf("Sequential Time: %f, Parallel Time: %f, Speedup: %f\n", sequentialTime, parallelTime, speedup);
+  
+//   // Calculate and print speedup results
+//   double speedupOpenMP = ((double)sequentialTime)/((double)parallelTimeOpenMP);
+//   printf("Sequential Time: %f, Parallel Time: %f, Speedup: %f\n", sequentialTime, parallelTimeOpenMP, speedupOpenMP);
+
+
+//   return 0;
+// }
 int main(int argc, char* argv[])
 {
-  // Variable declarations
-  double sequentialStart, sequentialEnd, sequentialTime;
-  double parallelStart, parallelEnd, parallelTime;
+    // Variables to store times and results
+    double sequentialStart, sequentialEnd, sequentialTime;
+    double parallelStart, parallelEnd, parallelTime;
+    double parallelStartOpenMP, parallelEndOpenMP, parallelTimeOpenMP;
+    double sequentialPi, parallelPi, openMPPi;
+    double sequentialDifference, parallelDifference, openMPDifference;
+  long giterations; 
+  int gnumberOfThreads;
 
-  
-  double parallelStartOpenMP, parallelEndOpenMP, parallelTimeOpenMP;
-  
-  
-  double sequentialPi, parallelPi, openMPPi;
-  double sequentialDifference, parallelDifference, openMPDifference;
-  long iterations; 
-  int numberOfThreads;
-
-
-
-  // Get number of iterations and number of threads from the command line
   if(argc > 1)
     {
-      iterations = strtol(argv[1], NULL, 10);
-      numberOfThreads = strtol(argv[2], NULL, 10);
+      giterations = strtol(argv[1], NULL, 10);
+      gnumberOfThreads = strtol(argv[2], NULL, 10);
     }
   else
     {
@@ -80,69 +187,53 @@ int main(int argc, char* argv[])
       return 0;
     }
 
-  // Time sequential calculation
-  sequentialStart = getTime();
-  sequentialPi = sequentialCompute(iterations);
-  sequentialEnd = getTime();
-  sequentialTime = sequentialEnd - sequentialStart;
-    
-  // Time parallel calculation
-  parallelStart = getTime();
-  parallelPi = parallelCompute(iterations, numberOfThreads);
-  parallelEnd = getTime();
-  parallelTime = parallelEnd - parallelStart;
-  
-  // Time openMP parralle calculation
-  parallelStartOpenMP = getTime();
-  openMPPi = parallelComputeOpenMP(iterations, numberOfThreads);
-  parallelEndOpenMP = getTime();
-  parallelTimeOpenMP = parallelEndOpenMP - parallelStartOpenMP;
+    // Loop through different powers of 10 for iterations (from 10^1 to 10^9)
+    for (long iterations = 10; iterations <= giterations; iterations *= 10) {
+        // Loop through different thread counts (e.g., 2, 4, 8 threads)
+        for (int numberOfThreads = 2; numberOfThreads <= gnumberOfThreads; numberOfThreads *= 2) {
 
-  // How do results compare with PI?
-  sequentialDifference = getDifference(sequentialPi);
-  parallelDifference = getDifference(parallelPi);
-  openMPDifference = getDifference(openMPPi);
-  
-  
-  
-  // Print results
-  printf("Sequential Calculation: %f\n", sequentialPi);
-  printf("This is %f away from the correct value of PI.\n\n", sequentialDifference);
+            // Time sequential calculation
+            sequentialStart = getTime();
+            sequentialPi = sequentialCompute(iterations);
+            sequentialEnd = getTime();
+            sequentialTime = sequentialEnd - sequentialStart;
 
-  printf("ParallelCalculation: %f\n", parallelPi);
-  printf("This is %f away from the correct value of PI.\n\n", parallelDifference);
+            // Time parallel Pthreads calculation
+            parallelStart = getTime();
+            parallelPi = parallelCompute(iterations, numberOfThreads);
+            parallelEnd = getTime();
+            parallelTime = parallelEnd - parallelStart;
 
-  printf("ParallelCalculationOpenMp: %f\n", openMPPi);
-  printf("This is %f away from the correct value of PI.\n\n", openMPDifference);
-  
-  printf("Number of iterations: %ld, Number of Threads: %d\n\n", iterations, numberOfThreads);
+            // Time parallel OpenMP calculation
+            parallelStartOpenMP = getTime();
+            openMPPi = parallelComputeOpenMP(iterations, numberOfThreads);
+            parallelEndOpenMP = getTime();
+            parallelTimeOpenMP = parallelEndOpenMP - parallelStartOpenMP;
 
-  // Calculate the validity of the parallel computation
-  double difference = parallelDifference - sequentialDifference;
+            // Calculate how far from PI the results are
+            sequentialDifference = getDifference(sequentialPi);
+            parallelDifference = getDifference(parallelPi);
+            openMPDifference = getDifference(openMPPi);
 
-  if (difference < .01 && difference > -.01)
-    printf("Parallel calculation is VALID!\n");
-  else
-    printf("Parallel calculation is INVALID!\n");
+            // Print results
+            printf("Iterations: %ld, Threads: %d\n", iterations, numberOfThreads);
+            printf("Sequential Time: %f, Parallel Time (Pthreads): %f, Parallel Time (OpenMP): %f\n", 
+                    sequentialTime, parallelTime, parallelTimeOpenMP);
+            printf("Sequential PI: %f, Parallel PI (Pthreads): %f, Parallel PI (OpenMP): %f\n", 
+                    sequentialPi, parallelPi, openMPPi);
 
+            // Calculate and print speedup
+            double pthreadSpeedup = sequentialTime / parallelTime;
+            double openMPSpeedup = sequentialTime / parallelTimeOpenMP;
+            printf("Speedup (Pthreads): %f, Speedup (OpenMP): %f\n\n", pthreadSpeedup, openMPSpeedup);
 
-  double differenceOpenMP = openMPDifference - sequentialDifference;
+            // Save results to CSV files
+            saveSpeedToCSV(iterations, numberOfThreads, sequentialTime, parallelTime, parallelTimeOpenMP);
+            savePerformanceToCSV(iterations, numberOfThreads, sequentialTime, pthreadSpeedup, openMPSpeedup);
+        }
+    }
 
-  if (differenceOpenMP < .01 && difference > -.01)
-    printf("OpenMp Parallel calculation is VALID!\n");
-  else
-    printf("OpenMp Parallel calculation is INVALID!\n");
-
-  // Calculate and print speedup results
-  double speedup = ((double)sequentialTime)/((double)parallelTime);
-  printf("Sequential Time: %f, Parallel Time: %f, Speedup: %f\n", sequentialTime, parallelTime, speedup);
-  
-  // Calculate and print speedup results
-  double speedupOpenMP = ((double)sequentialTime)/((double)parallelTimeOpenMP);
-  printf("Sequential Time: %f, Parallel Time: %f, Speedup: %f\n", sequentialTime, parallelTimeOpenMP, speedupOpenMP);
-
-
-  return 0;
+    return 0;
 }
 
 // Sequential computation of PI
